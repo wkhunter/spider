@@ -15,3 +15,13 @@ class Doubanmovie250Item(scrapy.Item):
     movie_star = scrapy.Field()
     # 电影描述
     movie_quote = scrapy.Field()
+    # 电影链接
+    movie_link = scrapy.Field()
+    # 电影评论
+    movie_comment = scrapy.Field()
+
+class DoubanmovieComment(scrapy.Item):
+	# 评论内容
+	comment_content = scrapy.Field()
+	# 评论作者
+	comment_author = scrapy.Field()
