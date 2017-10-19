@@ -11,12 +11,16 @@ class Doubanmovie250Pipeline(object):
 
 	def __init__(self):
 		self.f = open('movie.json', 'w')
+		self.movies = []
 
 	def process_item(self, item, spider):
-		content = json.dumps(dict(item), ensure_ascii = False) + ',\n'
-		self.f.write(content)
+		self.movies.append((dict(item)))
+		# content = json.dumps(dict(item), ensure_ascii = False) + ',\n'
+		# self.f.write(content)
 		return item
 
 	def close_spider(self, spider):
+		content = json.dumps(self.movies, ensure_ascii = False, indent = 1)
+		self.f.write(content)
 		self.f.close()
 
