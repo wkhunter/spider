@@ -13,10 +13,11 @@ class TencentSpider(CrawlSpider):
 
     # Response里面连接的提取规则,返回符合匹配规则的链接匹配对象的列表
     pagelink = LinkExtractor(allow = ("start=\d+"))
-
+    pagelinkDetail = LinkExtractor(allow = ("position_detail.php?id=\d+"))
     rules = [
         # 获取列表里面的链接一次发送请求并且继续跟进,调用指定的回调函数
-        Rule(pagelink, callback = "parseTencent", follow = True)
+        Rule(pagelink, callback = "parseTencent", follow = True),
+        Rule(pagelinkDetail, callback = "pagelinkDetail", follow = True),
     ]
 
     # 指定的回调函数
@@ -41,6 +42,8 @@ class TencentSpider(CrawlSpider):
 
             # 返回给管道
             yield item
+    def parseDetail(self, response):
+        print 'detail = ', 'detail'
 
     def parse_item(self, response):
         i = {}
