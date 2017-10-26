@@ -10,9 +10,17 @@ class SunSpider(CrawlSpider):
     start_urls = ['http://wz.sun0769.com/index.php/question/questionType?type=4&page=0']
 
     rules = (
-        Rule(LinkExtractor(allow=r'type=4&page=\d+')),
-        Rule(LinkExtractor(allow=r'/html/question/\d+/\d+.shtml'), callback = 'parse_item', follow = False)
+        Rule(LinkExtractor(allow=r'type=4'), process_links = 'deal_links', follow = True),
+        Rule(LinkExtractor(allow=r'/html/question/\d+/\d+.shtml'), callback = 'parse_item')
     )
+
+    # 处理连接
+    # 重新处理每个response里面提取的链接 Type&page=xxx?type=4 修改为 Type?page=xxx&type=4
+    # links就是LinkExtractor提取出来的当前页面的链接列表
+    def deal_links(self, links):
+        for link in links:
+            link.url = link.url.replace("?", "&").replace("Type&", "Type?")
+        return links
 
     def parse_item(self, response):
         item = DongguanItem()
