@@ -26,7 +26,17 @@ class SunSpider(CrawlSpider):
         item = DongguanItem()
         item['title'] = response.xpath('//div[@class="pagecenter p3"]//strong/text()').extract()[0]
         item['number'] = item['title'].split(' ')[-1].split(':')[-1]
-        item['content'] = response.xpath('//div[@class="c1 text14_2"]/text()').extract()[0]
+
+        # 内容,先取出有图片情况下的匹配规则,如果没有内容则列表为空
+        content = response.xpath('//div[@class="contentext"]/text()').extract()
+        # 没有内容,则返回列表Wie空,则使用无图片情况下的匹配规则
+        if len(content) == 0:
+            content = response.xpath('//div[@class="c1 text14_2"]/text()').extract()[0]
+            item['content'] = "".join(content).strip()
+            
+        else:
+            item['content'] = "".join(content).strip()
+        # 
         item['url'] = response.url
 
         yield item
