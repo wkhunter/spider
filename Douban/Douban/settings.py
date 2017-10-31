@@ -15,11 +15,8 @@ SPIDER_MODULES = ['Douban.spiders']
 NEWSPIDER_MODULE = 'Douban.spiders'
 
 
-
-
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0(compatible;MSIE9.0;WindowsNT6.1;Trident/5.0;'
+USER_AGENT = 'User-Agent:Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'
 
 # Obey robots.txt rules
 # ROBOTSTXT_OBEY = True
@@ -30,13 +27,16 @@ USER_AGENT = 'Mozilla/5.0(compatible;MSIE9.0;WindowsNT6.1;Trident/5.0;'
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
+
+# 
+HTTPERROR_ALLOWED_CODES = [403]
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False

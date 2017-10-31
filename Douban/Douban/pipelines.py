@@ -25,14 +25,17 @@ class DoubanPipeline(object):
         # 指定存放数据的数据库表名称
         self.post = mydb[sheetname]
 
-        self.f = open("tencent.json", "w")
-
     def process_item(self, item, spider):
-        content = json.dumps(dict(item), ensure_ascii = False) + ",\n"
-        self.f.write(content)
-
+        
         data = dict(item)
         self.post.insert(data)
         return item
-    def close_spider(self, spider):
-        self.f.close()
+
+
+
+
+
+
+
+
+

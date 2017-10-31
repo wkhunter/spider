@@ -18,19 +18,42 @@ class DoubanmovieSpider(scrapy.Spider):
             bd = each.xpath('.//div[@class="bd"]/p/text()').extract()[0].encode("utf-8")
             star = each.xpath('.//div[@class="star"]/span[@class="rating_num"]/text()').extract()[0].encode("utf-8")
             quote = each.xpath('.//p[@class="quote"]/span/text()').extract()
-
+            # link = each.xpath('./div[@class="hd"]/a/@href').extract()[0].encode("utf-8")
             if len(quote) != 0:
                 item['quote'] = quote[0].encode("utf-8")
 
             item['title'] = title
-            item['bd'] = bd
+            item['bd'] = bd.replace(" ", "").replace("\n", "")
             item['star'] = star
+            # item['link'] = link
             
             yield item
-
+            
         if self.offset < 225:
             self.offset += 25
-            print 'url = ', self.url + str(self.offset)
-            yield scrapy.Request(self.url + str(self.offset), callback = self.parse, dont_filter = True)
+            yield scrapy.Request(self.url + str(self.offset), callback = self.parse)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
