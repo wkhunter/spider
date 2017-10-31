@@ -41,3 +41,14 @@ class SunSpider(CrawlSpider):
         item['url'] = response.url
 
         yield item
+
+
+
+
+
+
+
+
+
+
+

@@ -13,3 +13,4 @@ class DongguanItem(scrapy.Item):
     content = scrapy.Field()
     url = scrapy.Field()
     number = scrapy.Field()
+    
