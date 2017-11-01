@@ -28,6 +28,7 @@ class DoubanmovieSpider(scrapy.Spider):
             item['url'] = url            
             yield item
             # yield scrapy.Request(url, meta = {'item': item}, callback = self.parse)
+
             
             
         if self.offset < 225:
