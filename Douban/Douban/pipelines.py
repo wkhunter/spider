@@ -11,7 +11,6 @@ import json
 from scrapy.conf import settings
 
 class DoubanPipeline(object):
-
     def __init__(self):
         host = settings['MANGODB_HOST']
         port = settings['MANGODB_PORT']
@@ -30,6 +29,18 @@ class DoubanPipeline(object):
         data = dict(item)
         self.post.insert(data)
         return item
+
+class DoubanJsonPipeline(object):
+    def __init__(self):
+        self.f = open('movie.json', 'w')
+
+    def process_item(self, item, spider):
+        content = json.dumps(dict(item), ensure_ascii = False) + ",\n"
+        self.f.write(content)
+        return item
+
+    def close_spider(self, spider):
+        self.f.close()
 
 
 

@@ -17,7 +17,8 @@ class DoubanItem(scrapy.Item):
     star = scrapy.Field()
     # 引用
     quote = scrapy.Field()
-    # 简介
-    # info = scrapy.Field()
     # 链接
-    # link = scrapy.Field()
+    url = scrapy.Field()
+    # 简介
+    info = scrapy.Field()
+    

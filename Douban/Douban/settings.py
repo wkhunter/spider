@@ -69,6 +69,7 @@ HTTPERROR_ALLOWED_CODES = [403]
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'Douban.pipelines.DoubanPipeline': 300,
+   'Douban.pipelines.DoubanJsonPipeline': 400,
 }
 
 # MANGODB 主机名
