@@ -30,7 +30,7 @@ LOG_LEVEL = "DEBUG"
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -95,7 +95,7 @@ USER_AGENTS = [
 ]
 
 PROXIES = [
-    {"ip_port": "180.118.135.42: 9000", "user_password": ""}
+    {"ip_port": "120.26.167.140:16816", "user_password": "xxbarca:xprepx4o"}
 ]
 
 # MANGODB 主机名

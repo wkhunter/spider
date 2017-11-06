@@ -15,16 +15,15 @@ class RandomUserAgent(object):
         request.headers.setdefault("User-Agent", useragent)
 
 class RandomProxy(object):
-    pass
-    # def process_request(self, request, spider):
-    #     proxy = random.choice(PROXIES)
-    #     if proxy['user_password'] is None:
-    #         request.meta['proxy'] = "http://" + proxy['ip_port']
-    #     else:
-
-    #         base64Userpassword = base64.b64encode(proxy['user_password'])
-    #         request.headers['Proxy-Authorization'] = 'Basic ' + base64Userpassword
-    #         request.meta['proxy'] = "http://" + proxy['ip_port']
+    # pass
+    def process_request(self, request, spider):
+        proxy = random.choice(PROXIES)
+        if proxy['user_password'] is None:
+            request.meta['proxy'] = "http://" + proxy['ip_port']
+        else:
+            base64Userpassword = base64.b64encode(proxy['user_password'])
+            request.headers['Proxy-Authorization'] = 'Basic ' + base64Userpassword
+            request.meta['proxy'] = "http://" + proxy['ip_port']
 
         
 
