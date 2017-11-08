@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for Douban project
+# Scrapy settings for DoubanLogin project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,20 +9,23 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'Douban'
+BOT_NAME = 'DoubanLogin'
 
-SPIDER_MODULES = ['Douban.spiders']
-NEWSPIDER_MODULE = 'Douban.spiders'
+SPIDER_MODULES = ['DoubanLogin.spiders']
+NEWSPIDER_MODULE = 'DoubanLogin.spiders'
+
+
+REDIRECT_ENABLED = False
+HTTPERROR_ALLOWED_CODES = [403, 302]
+
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'User-Agent:Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'
+#USER_AGENT = 'DoubanLogin (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-# ROBOTSTXT_OBEY = True
-
-LOG_FILE = "douban.log"
-LOG_LEVEL = "DEBUG"
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -30,16 +33,13 @@ LOG_LEVEL = "DEBUG"
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+#DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-COOKIES_ENABLED = False
-
-# 
-HTTPERROR_ALLOWED_CODES = [403]
+#COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -53,15 +53,14 @@ HTTPERROR_ALLOWED_CODES = [403]
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'Douban.middlewares.DoubanSpiderMiddleware': 543,
+#    'DoubanLogin.middlewares.DoubanloginSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   'Douban.middlewares.RandomUserAgent': 100,
-   'Douban.middlewares.RandomProxy': 200,
-}
+#DOWNLOADER_MIDDLEWARES = {
+#    'DoubanLogin.middlewares.MyCustomDownloaderMiddleware': 543,
+#}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -71,41 +70,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {   
-   'Douban.pipelines.DoubanPipeline': 300,
-   'Douban.pipelines.DoubanJsonPipeline': 400,
-}
-
-# 
-USER_AGENTS = [
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0',
-    'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)',
-    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)',
-    'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11',
-    'Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11',
-    'Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11',
-    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; 360SE)',
-    'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; SE 2.X MetaSr 1.0; SE 2.X MetaSr 1.0; .NET CLR 2.0.50727; SE 2.X MetaSr 1.0)',
-    'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5',
-    'Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/build-1107180945; U; en-GB) Presto/2.8.149 Version/11.10',
-    'Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11',
-    'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'
-]
-
-PROXIES = [
-    {"ip_port": "120.26.167.140:16816", "user_password": "xxbarca:xprepx4o"}
-]
-
-# MANGODB 主机名
-MANGODB_HOST = '127.0.0.1'
-# MANGODB 端口号
-MANGODB_PORT = 27017
-# 数据库名称
-MANGODB_DBNAME = 'Douban'
-# 表名称
-MANGODB_SHEETNAME = 'doubanmovies'
+#ITEM_PIPELINES = {
+#    'DoubanLogin.pipelines.DoubanloginPipeline': 300,
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

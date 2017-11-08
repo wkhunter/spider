@@ -2,7 +2,7 @@
 import scrapy
 from Douban.items import DoubanItem
 
-class DoubanmovieSpider(scrapy.Spider):
+class DoubanSpider(scrapy.Spider):
     name = 'doubanMovie'
     allowed_domains = ['movie.douban.com']
     offset = 0
@@ -37,29 +37,3 @@ class DoubanmovieSpider(scrapy.Spider):
         info = response.xpath('//div[@class="indent"]/span[1]/text()').extract()[0].encode("utf-8") 
         item['info'] = info.replace(" ", "")
         yield item
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
