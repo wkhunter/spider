@@ -5,16 +5,9 @@ from Lagou.items import LagouItem
 class LagouSpider(scrapy.Spider):
     name = 'lagou'
     allowed_domains = ['https://www.lagou.com/']
-    start_urls = ['https://www.lagou.com/zhaopin/Python/']
-
-
+    start_urls = ['https://www.lagou.com/zhaopin/Python/1/']
 
     def parse(self, response):
-        # 职位名称 /div[@class="position"]
-        # 公司名称 /div[@class="company"]/div[1]/a
-        # 薪水 /div[@class="position"]/div[@class="p_bot"]//span[@class="money"]
-        # 经验 /div[@class="position"]/div[@class="p_bot"]/div[@class="li_b_l"]/text()
-        # 发布时间 /div[@class="position"]/div[@class="p_top"]/span
         jobs = response.xpath('//div[@class="list_item_top"]')
         for job in jobs:
             item = LagouItem()
@@ -31,6 +24,12 @@ class LagouSpider(scrapy.Spider):
             item['link'] = link
 
             yield scrapy.Request(link, meta = {'item': item}, callback = self.parse_detail, dont_filter = True)
+
+        if not len(response.xpath('//div[@class="pager_container"]/a[@class="page_no pager_next_disabled"]')):
+            nextURL = response.xpath('//div[@class="pager_container"]/a[last()]/@href').extract()
+
+            print 'nextURL = ', nextURL[0]
+            yield scrapy.Request(nextURL[0], callback = self.parse, dont_filter = True)
 
     def parse_detail(self, response):
         item = response.meta['item']
@@ -51,7 +50,8 @@ class LagouSpider(scrapy.Spider):
 
 
 
-
+# //div[@class="pager_container"]/a[@rel="nofollow"][2]
+# //div[@class="pager_container"]/a[@class="page_no pager_next_disabled"]
 
 
 
