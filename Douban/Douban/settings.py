@@ -14,6 +14,7 @@ BOT_NAME = 'Douban'
 SPIDER_MODULES = ['Douban.spiders']
 NEWSPIDER_MODULE = 'Douban.spiders'
 
+HTTPERROR_ALLOWED_CODES = [407]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'User-Agent:Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'
@@ -30,7 +31,7 @@ LOG_LEVEL = "DEBUG"
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -72,7 +73,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {   
-   'Douban.pipelines.DoubanPipeline': 300,
+   # 'Douban.pipelines.DoubanPipeline': 300,
    'Douban.pipelines.DoubanJsonPipeline': 400,
 }
 
@@ -95,7 +96,7 @@ USER_AGENTS = [
 ]
 
 PROXIES = [
-    {"ip_port": "120.26.167.140:16816", "user_password": "xxbarca:xprepx4o"}
+    {"ip_port": "121.42.63.89:16816", "user_password": "xxbarca:xprepx4o"}
 ]
 
 # MANGODB 主机名
