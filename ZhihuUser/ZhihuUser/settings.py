@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for BDTB project
+# Scrapy settings for ZhihuUser project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,21 +9,20 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'BDTB'
+BOT_NAME = 'ZhihuUser'
 
-SPIDER_MODULES = ['BDTB.spiders']
-NEWSPIDER_MODULE = 'BDTB.spiders'
-
-# MySQL Database
-MYSQL_HOST = '127.0.0.1'
-MYSQL_DBNAME = 'bdtb'
-MYSQL_USER = 'root'
-MYSQL_PASSWORD = ''
+SPIDER_MODULES = ['ZhihuUser.spiders']
+NEWSPIDER_MODULE = 'ZhihuUser.spiders'
 
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'BDTB (+http://www.yourdomain.com)'
+#USER_AGENT = 'ZhihuUser (+http://www.yourdomain.com)'
+USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+
+
+REDIRECT_ENABLED = False
+HTTPERROR_ALLOWED_CODES = [301, 302, 401]
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -34,7 +33,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+#DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -46,21 +45,24 @@ DOWNLOAD_DELAY = 3
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en',
+  'authorization':'Bearer Mi4xSlZjZEFBQUFBQUFBRUFMbE9LN1pDeGNBQUFCaEFsVk4tVDROV3dBMHJxX0RUb2JUS2JFU2xOMHVKU21RSElEWXRB|1512042745|4d944810916bd0ef1a0ea024ebcfd7d00a892aac'
+  # 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.54 Safari/536.5'
+
+}
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'BDTB.middlewares.BdtbSpiderMiddleware': 543,
+#    'ZhihuUser.middlewares.ZhihuuserSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'BDTB.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'ZhihuUser.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -71,10 +73,9 @@ DOWNLOAD_DELAY = 3
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   'BDTB.pipelines.BdtbPipeline': 300,
-   # 'BDTB.pipelines.BdtbMySqlPipeline': 200
-}
+#ITEM_PIPELINES = {
+#    'ZhihuUser.pipelines.ZhihuuserPipeline': 300,
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

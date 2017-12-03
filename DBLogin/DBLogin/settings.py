@@ -79,8 +79,8 @@ ROBOTSTXT_OBEY = False
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'DBLogin.middlewares.RandomUserAgent': 100,
-   'DBLogin.middlewares.RandomProxy': 200,
+   # 'DBLogin.middlewares.RandomUserAgent': 100,
+   'DBLogin.middlewares.MyRedirectMiddleware': 200,
 }
 
 # Enable or disable extensions
