@@ -9,6 +9,7 @@ class DoubanmovieSpider(scrapy.Spider):
     url = 'https://movie.douban.com/top250?start=' 
     start_urls = [url + str(offset)]
 
+
     def parse(self, response):
         movies = response.xpath('//div[@class="info"]')
         
