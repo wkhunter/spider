@@ -13,6 +13,7 @@ class TiebaSpider(scrapy.Spider):
     url = 'https://tieba.baidu.com/f?kw=巴塞罗那&ie=utf-8&pn='
     start_urls = [url + str(pn)]
 
+
     def parse(self, response):
         cate_name = response.xpath("//a[@class=' card_title_fname']/text()").extract()[0]
         cate_name = cate_name.replace(' ', '').replace('\n', '')
