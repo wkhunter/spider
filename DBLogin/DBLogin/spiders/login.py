@@ -12,6 +12,7 @@ class LoginSpider(scrapy.Spider):
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"
     }
 
+
     url = "https://movie.douban.com/subject/24860563/?from=subject-page"
 
     def start_requests(self):
