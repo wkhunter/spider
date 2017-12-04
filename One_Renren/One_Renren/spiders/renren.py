@@ -7,6 +7,7 @@ class RenrenSpider(scrapy.Spider):
     allowed_domains = ['http://zhibo.renren.com']
     start_urls = ['http://http://zhibo.renren.com/']
 
+
     def start_requests(self):
     	url = 'http://www.renren.com/PLogin.do'
     	yield scrapy.FormRequest(
