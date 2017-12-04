@@ -5,7 +5,6 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from TencentSpider.items import TencentspiderItem
 
-
 class TencentSpider(CrawlSpider):
     name = 'tencent'
     allowed_domains = ['tencent.com']
