@@ -15,7 +15,9 @@ def get_job_list():
 	jobs = result['content']['positionResult']['result']
 	return jobs
 
-def write_to_excel(jobs):
+
+if __name__ == '__main__':
+	jobs = get_job_list()
 	# 创建excel对象
 	excel = xlwt.Workbook()
 	# 创建单元格对象
@@ -46,13 +48,10 @@ def write_to_excel(jobs):
 		sheet.write(n, 10, job['companyFullName'])
 		n += 1
 
+
+
+
 	excel.save('lagou.xlsx')
-
-
-if __name__ == '__main__':
-	jobs = get_job_list()
-	write_to_excel(jobs)
-	
 
 
 
