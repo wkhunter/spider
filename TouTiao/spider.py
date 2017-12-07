@@ -1,101 +1,93 @@
 import requests
-from urllib.parse import urlencode
-from requests.exceptions import RequestException
-import json
-from bs4 import BeautifulSoup
-import re
 from config import *
-from json.decoder import JSONDecodeError
+import json
+import time
+import hashlib
 
-from multiprocessing import Pool
-
-# import pymongo
-# client = pymongo.MongoClient(MONGO_URL, connect = False)
-# db = client[MONGO_DB]
-
-def get_page_index(offset, keyword):
-	data = {
-		'offset': offset,
-		'format': 'json',
-		'keyword': keyword,	
-		'autoload': 'true',
-		'count': 20,
-		'cur_tab': 1,
+def get_one_page(max_behot_time = 0, max_behot_time_tmp = 0):
+	time.sleep(5)
+	as_cp = get_as_cp()
+	params = {
+		'category': 'essay_joke',
+		'utm_source': 'toutiao',
+		'widen': '1',
+		'max_behot_time': str(max_behot_time),
+		'max_behot_time_tmp': str(max_behot_time_tmp),
+		'tadrequire': 'true',
+		'as': str(as_cp.get('as')),
+		'cp': str(as_cp.get('cp'))
 	}
-	url = 'https://www.toutiao.com/search_content/?' + urlencode(data)
-	response = requests.get(url)
-	try:
-		if response.status_code == 200:
-			return response.text
-		return None
-	except RequestException:
-		print('请求索引页失败')
-		return None
+	res = requests.get(START_URL, params = params, headers = HEADERS)
+	result = requests.get(res.url, headers = HEADERS)
+	result = result.json()
+	return result
+	
+def parse_one_page(result):
+	lists = result.get('data')
+	for each in lists:
+		group = each.get('group')
+		item = {}
+		item['content'] = group.get('content')
+		item['status_desc'] = group.get('status_desc')
+		item['user'] = group.get('user').get('name')
+		write_to_json(item)
 
-def parse_page_index(html):
-	try:
-		data = json.loads(html)
-		if data and 'data' in data.keys():
-			for item in data.get('data'):
-				yield item.get('article_url')
-	except JSONDecodeError:
-		pass
+	# 
+	has_more = result.get('has_more')
+	next_time = result.get('next').get('max_behot_time')
+	if has_more:
+		res = get_one_page(next_time, next_time)
+		parse_one_page(res)
 
+def write_to_json(item):
+	with open('duanzi.txt', 'a', encoding = 'utf-8') as f:
+		f.write(json.dumps(dict(item), ensure_ascii = False, indent = 1) + ',\n')
+		f.close()
 
-# 详情页
-def get_page_detail(url):
-	response = requests.get(url)
-	try:
-		if response.status_code == 200:
-			return response.text
-		return None
-	except RequestException:
-		print('请求详情页失败', url)
-		return None
+def get_as_cp():
+	t = str(time.time())[0:10]
+	e = hex(int(t)).upper()[2:]
+	i = hashlib.md5(str(int(t)).encode()).hexdigest().upper()
 
-# 解析详情页面
-def parse_page_detail(html, url):
+	if len(e) != 8:
+		zz = {
+			'as': '479BB4B7254C150',
+			'cp': '7E0AC8874BB0985'
+		}
+		return zz
 
-	soup = BeautifulSoup(html, 'lxml')
-	title = soup.select('title')[0].get_text()
-	# images_pattern = re.compile('gallery: JSON.parse\("(.*)"\)', re.S)
-	# result = re.search(images_pattern, html)
-	# if result:
-	# 	print(result)
-	return {
-		'title': title,
-		'url': url
+	n = i[:5]
+	a = i[-5:]
+	r = ""
+	s = ""
+	for i in range(5):
+		s = s + n[i] + e[i]
+	for j in range(5):
+		r = r + e[j + 3] + a[j]
+	zz = {
+		'as': "A1" + s + e[-3:],
+		'cp': e[0:3] + r + "E1"
 	}
-
-# 存储到mongodb
-def save_to_mongo(result):
-	if db[MONGO_TABLE].insert(result):
-		return True
-	return False
-
-
-# 下载图片
-def download_image(url):
-	pass
-
-def main(offset):
-	html = get_page_index(offset, KEYWORD)
-	for url in parse_page_index(html):
-		if url:
-			html = get_page_detail(url)
-		if html:
-			result = parse_page_detail(html, url)
-			print(result)
-			# save_to_mongo(result)
-
+	return zz
 
 if __name__ == '__main__':
-	# main()
-	groups = [x*20 for x in range(GROUP_START, GROUP_END + 1)]
-	
-	# 多线程
-	pool = Pool()
-	pool.map(main, groups)
+	result = get_one_page()
+	parse_one_page(result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
