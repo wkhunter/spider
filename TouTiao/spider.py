@@ -19,6 +19,7 @@ def get_one_page(max_behot_time = 0, max_behot_time_tmp = 0):
 	}
 	res = requests.get(START_URL, params = params, headers = HEADERS)
 	result = requests.get(res.url, headers = HEADERS)
+	
 	result = result.json()
 	return result
 	
