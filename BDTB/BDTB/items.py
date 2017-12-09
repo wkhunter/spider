@@ -9,6 +9,8 @@ import scrapy
 
 
 class BdtbItem(scrapy.Item):
-    cate_name = scrapy.Field()
     title = scrapy.Field()
     link = scrapy.Field()
+    author = scrapy.Field()
+
+    comments = scrapy.Field()
