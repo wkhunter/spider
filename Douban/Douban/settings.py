@@ -14,7 +14,7 @@ BOT_NAME = 'Douban'
 SPIDER_MODULES = ['Douban.spiders']
 NEWSPIDER_MODULE = 'Douban.spiders'
 
-HTTPERROR_ALLOWED_CODES = [407]
+HTTPERROR_ALLOWED_CODES = [407, 302]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'User-Agent:Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'
@@ -59,10 +59,10 @@ HTTPERROR_ALLOWED_CODES = [403]
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   'Douban.middlewares.RandomUserAgent': 100,
-   'Douban.middlewares.RandomProxy': 200,
-}
+# DOWNLOADER_MIDDLEWARES = {
+   # 'Douban.middlewares.RandomUserAgent': 100,
+   # 'Douban.middlewares.RandomProxy': 200,
+# }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
