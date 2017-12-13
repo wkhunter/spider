@@ -10,17 +10,14 @@ class douyu(unittest.TestCase):
 		self.f = open('response.txt', 'a')
 		# 创建PhantomJS浏览器对象
 		self.driver = webdriver.PhantomJS()
-
 		self.count = 1
-
 	# 测试方法以test开头
 	def testDouyu(self):
 		self.driver.get('https://www.douyu.com/directory/all')
-		with open('response.html', 'w') as f:
-			f.write(self.driver.page_source)
 		while  True:
-			time.sleep(1)
 			print(self.count)
+			self.count += 1
+			time.sleep(1)
 			soup = bs(self.driver.page_source, 'lxml')
 			# 房间名, 返回列表
 			names = soup.find_all('span', {'class': 'dy-name ellipsis fl'})
@@ -40,10 +37,6 @@ class douyu(unittest.TestCase):
 
 			# 点击事件
 			self.driver.find_element_by_class_name('shark-pager-next').click()
-			self.count += 1
-
-
-
 
 	# 测试结束
 	def tearDown(self):
@@ -54,6 +47,7 @@ class douyu(unittest.TestCase):
 if __name__ == '__main__':
 	# 启动测试模块
 	unittest.main()
+
 
 
 
