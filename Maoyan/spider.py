@@ -4,6 +4,14 @@ from config import *
 import re
 import json
 from multiprocessing import Pool
+import pymongo
+
+# 创建mangodb的数据库连接
+client = pymongo.MongoClient('localhost', 27017)
+# 指定数据库
+db = client['Maoyan']
+# 指定存放数据的数据库表名称
+collection = db['maoyanmovie']
 
 def get_one_page(url):
 	try:
@@ -29,6 +37,10 @@ def parse_one_page(html):
 			'score': item[5] + item[6]
 		}
 
+def write_to_mongo(item):
+	# item = dict(item)
+	db.posts.insert_one(item)
+
 def write_to_file(content):
 	# a 表示往后追加
 	with open('result.txt', 'a', encoding = 'utf-8') as f:
@@ -39,14 +51,16 @@ def main(offset):
 	url = 'http://maoyan.com/board/4?offset=' + str(offset)
 	html = get_one_page(url)
 	for item in parse_one_page(html):
-		write_to_file(item)
+		# write_to_file(item)
+		# print(item)
+		write_to_mongo(item)
 		
 
 if __name__ == '__main__':
-	pool = Pool()
-	pool.map(main, [i*10 for i in range(10)])
-	# for i in range(10):
-		# main(i * 10)	
+	# pool = Pool()
+	# pool.map(main, [i*10 for i in range(10)])
+	for i in range(10):
+		main(i * 10)	
 
 
 
