@@ -37,6 +37,7 @@ class TiebaSpider(scrapy.Spider):
             }
             yield scrapy.Request(link, meta = meta, callback = self.parse_detail, dont_filter = True)
 
+        
         is_exist = response.xpath("//div[@id='frs_list_pager']/a[@class='next pagination-item ']")
         if is_exist:
             self.pn += 50
