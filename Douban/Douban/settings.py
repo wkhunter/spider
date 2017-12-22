@@ -14,7 +14,9 @@ BOT_NAME = 'Douban'
 SPIDER_MODULES = ['Douban.spiders']
 NEWSPIDER_MODULE = 'Douban.spiders'
 
-HTTPERROR_ALLOWED_CODES = [407, 302]
+REDIRECT_ENABLED = False
+
+HTTPERROR_ALLOWED_CODES = [407, 302, 403]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'User-Agent:Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'
@@ -22,8 +24,8 @@ USER_AGENT = 'User-Agent:Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us
 # Obey robots.txt rules
 # ROBOTSTXT_OBEY = True
 
-LOG_FILE = "douban.log"
-LOG_LEVEL = "DEBUG"
+# LOG_FILE = "douban.log"
+# LOG_LEVEL = "DEBUG"
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -31,7 +33,7 @@ LOG_LEVEL = "DEBUG"
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -40,7 +42,6 @@ LOG_LEVEL = "DEBUG"
 COOKIES_ENABLED = False
 
 # 
-HTTPERROR_ALLOWED_CODES = [403]
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -59,10 +60,12 @@ HTTPERROR_ALLOWED_CODES = [403]
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
+DOWNLOADER_MIDDLEWARES = {
    # 'Douban.middlewares.RandomUserAgent': 100,
    # 'Douban.middlewares.RandomProxy': 200,
-# }
+   # 'Douban.middlewares.MyRedirectMiddleware': 200,
+   # 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': None
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -73,7 +76,7 @@ HTTPERROR_ALLOWED_CODES = [403]
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {   
-   # 'Douban.pipelines.DoubanPipeline': 300,
+   'Douban.pipelines.DoubanPipeline': 300,
    'Douban.pipelines.DoubanJsonPipeline': 400,
 }
 
