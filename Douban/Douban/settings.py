@@ -14,15 +14,15 @@ BOT_NAME = 'Douban'
 SPIDER_MODULES = ['Douban.spiders']
 NEWSPIDER_MODULE = 'Douban.spiders'
 
-REDIRECT_ENABLED = False
+# REDIRECT_ENABLED = False
 
-HTTPERROR_ALLOWED_CODES = [407, 302, 403]
+# HTTPERROR_ALLOWED_CODES = [407, 302, 403]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'User-Agent:Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'
+# 'User-Agent:Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50'
 
 # Obey robots.txt rules
-# ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # LOG_FILE = "douban.log"
 # LOG_LEVEL = "DEBUG"
@@ -47,10 +47,14 @@ COOKIES_ENABLED = False
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en',
+  'Host': 'push.douban.com:4397',
+  'User-Agent':'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
+  'Origin': 'https://movie.douban.com',
+
+}
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
@@ -65,6 +69,7 @@ DOWNLOADER_MIDDLEWARES = {
    # 'Douban.middlewares.RandomProxy': 200,
    # 'Douban.middlewares.MyRedirectMiddleware': 200,
    # 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': None
+   'scrapy.downloadermiddlewares.retry.RetryMiddleware': None
 }
 
 # Enable or disable extensions
@@ -76,7 +81,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {   
-   'Douban.pipelines.DoubanPipeline': 300,
+   # 'Douban.pipelines.DoubanPipeline': 300,
    'Douban.pipelines.DoubanJsonPipeline': 400,
 }
 

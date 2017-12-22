@@ -14,21 +14,22 @@ class DoubanmovieSpider(scrapy.Spider):
         movies = response.xpath('//div[@class="info"]')
         
         for each in movies:
-            item = DoubanItem()
-            title = title = each.xpath('.//span[@class="title"][1]/text()').extract()[0]                
-            bd = each.xpath('.//div[@class="bd"]/p/text()').extract()[0].encode("utf-8")
-            star = each.xpath('.//div[@class="star"]/span[@class="rating_num"]/text()').extract()[0]
-            quote = each.xpath('.//p[@class="quote"]/span/text()').extract()
-            url = each.xpath('.//a/@href').extract()[0]
-            if len(quote) != 0:
-                item['quote'] = quote[0]
+            print(each)
+            # item = DoubanItem()
+            # title = title = each.xpath('.//span[@class="title"][1]/text()').extract()[0]                
+            # bd = each.xpath('.//div[@class="bd"]/p/text()').extract()[0].encode("utf-8")
+            # star = each.xpath('.//div[@class="star"]/span[@class="rating_num"]/text()').extract()[0]
+            # quote = each.xpath('.//p[@class="quote"]/span/text()').extract()
+            # url = each.xpath('.//a/@href').extract()[0]
+            # if len(quote) != 0:
+            #     item['quote'] = quote[0]
 
-            item['title'] = title
-            item['bd'] = bd
-            item['star'] = star
-            item['url'] = url  
+            # item['title'] = title
+            # item['bd'] = bd
+            # item['star'] = star
+            # item['url'] = url  
 
-            yield item 
+            # yield item 
                      
     #         yield scrapy.Request(url, meta = {'item': item}, callback = self.parse_detail, dont_filter = True)
     #     if self.offset < 225:
