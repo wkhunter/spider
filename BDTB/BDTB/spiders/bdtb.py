@@ -14,7 +14,6 @@ class TiebaSpider(scrapy.Spider):
     url = 'https://tieba.baidu.com/f?kw=巴塞罗那&ie=utf-8&pn='
     start_urls = [url + str(pn)]
 
-
     def parse(self, response):
         lists = response.xpath("//div[@class='threadlist_lz clearfix']")
         for each in lists:

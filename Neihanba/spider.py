@@ -41,11 +41,10 @@ class Spider:
 
 	# 段子逐个写入文件
 	def writePage(self, item):
+		# print(item)
 		with open('result.txt', 'a', encoding = 'utf-8') as f:
 			f.write(json.dumps(item, ensure_ascii = False) + ',\n')
 			f.close()
-
-
 
 	# 控制爬虫运行
 	def startWork(self):
