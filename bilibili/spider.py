@@ -45,6 +45,7 @@ def getFollowers(vmid):
 			for item in datalist:
 				mid = item.get('mid')
 				info = personInfo(mid)	
+				# getFollowers(info.get('mid'))
 			pn += 1				
 		else:
 			break
@@ -62,10 +63,10 @@ def personInfo(uid):
 		'User-Agent': ua,
 		'Referer': 'https://space.bilibili.com/' + str(uid)
 	}
-	jscontent = requests.session().post('http://space.bilibili.com/ajax/member/GetInfo', headers = headers, data = params, proxies = proxies).text
-	
+	jscontent = requests.session().post('http://space.bilibili.com/ajax/member/GetInfo', headers = headers, data = params, proxies = proxies)
+	print(jscontent.status_code)
 	try:
-		dicData = json.loads(jscontent)
+		dicData = json.loads(jscontent.text)
 		status = dicData['status'] if 'status' in dicData.keys() else False
 		if status:
 			if 'data' in dicData.keys():
