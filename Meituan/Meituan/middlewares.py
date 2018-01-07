@@ -7,6 +7,7 @@
 
 from scrapy import signals
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+from scrapy.downloadermiddlewares.httpproxy import HttpProxyMiddleware
 import random
 
 class RandomUserAgent(UserAgentMiddleware):
@@ -22,7 +23,23 @@ class RandomUserAgent(UserAgentMiddleware):
     def process_request(self, request, spider):
         agent = random.choice(self.user_agent)
         print('agent = ', agent)
-        request.headers['User-Agent'] = agent
+        # request.headers['User-Agent'] = agent
+        request.headers.setdefault('User-Agent', agent)
+
+class  RandomHttpProxy(HttpProxyMiddleware):
+    def __init__(self, http_proxy):
+        self.http_proxy = http_proxy
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            user_agent = crawler.settings.get('PROXIES')
+        )
+
+    def process_request(self, request, spider):
+        http_proxy = random.choice(self.http_proxy)
+        print(http_proxy)
+        request.meta['proxy'] = http_proxy 
 
 class MeituanSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
